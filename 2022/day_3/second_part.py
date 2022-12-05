@@ -26,12 +26,18 @@ with open(os.path.join('.', INPUT_FILE_NAME), 'r') as file:
         content = file.read(100)
     rucksacks_items = ''.join(full_input).split('\n')[:-1]
     priorities_sum = 0
-    for items in rucksacks_items:
-        [first_compartment, second_compartment] = get_two_parts_of_a_rucksack(
-            items)
-        first_compartment_items = set(first_compartment)
-        second_compartment_items = set(second_compartment)
-        for item in second_compartment_items:
-            if item in first_compartment_items:
-                priorities_sum += get_item_priority(item)
+    number_of_items = len(rucksacks_items)
+    for index in range(0, number_of_items, 3):
+        [first_elf, second_elf, third_elf] = [rucksacks_items[index],
+                                              rucksacks_items[index+1], rucksacks_items[index+2]]
+        first_elf_distinct_items = set(first_elf)
+        second_elf_distinct_items = set(second_elf)
+        third_elf_distinct_items = set(third_elf)
+        dinstict_item = first_elf[0]
+        for item in first_elf_distinct_items:
+            if item in second_elf_distinct_items and item in third_elf_distinct_items:
+                distinct_item = item
+
+        priorities_sum += get_item_priority(distinct_item)
+
     print('priorities_sum = ', priorities_sum)
