@@ -1,8 +1,7 @@
 # importing the sys module
 import sys
 import os
-from typing import Deque, List, Set, DefaultDict, Tuple
-from collections import defaultdict, deque
+from typing import List, Tuple
 
 # appending the directory of read_txt_from_file.py in the sys.path list
 sys.path.append('../lib')
