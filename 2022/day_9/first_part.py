@@ -8,7 +8,7 @@ sys.path.append("../lib")
 
 from utils import read_txt_from_file
 
-FILE_PATH = "./mock_input.txt"
+FILE_PATH = "./input.txt"
 ABSOLUTE_FILE_PATH = os.path.abspath(FILE_PATH)
 
 moves = "".join(read_txt_from_file(ABSOLUTE_FILE_PATH)).strip().split("\n")
@@ -94,7 +94,7 @@ def in_bottom_right_quarter(first_point: List[int], second_point: List[int]) -> 
     (first_point_col == second_point_col + 1 and first_point_row == second_point_row + 2)
   )
 
-def execute_move(direction: str, steps_count: int, head_pos: List[int], tail_pos: List[int], all_tail_positions: List[List[int]]) -> None:
+def execute_move(direction: str, steps_count: int, head_pos: List[int], tail_pos: List[int], all_tail_positions: Set[Tuple[int]]) -> None:
   while steps_count > 0:
     if direction == 'U':
       # move up 1 step => row -= 1
@@ -108,6 +108,8 @@ def execute_move(direction: str, steps_count: int, head_pos: List[int], tail_pos
     elif direction == "R":
       # move right 1 step => column += 1
       head_pos[1] += 1
+    # print('head_pos = ', head_pos)
+    # all_head_positions.append(list(head_pos))
 
     if not head_pos == tail_pos and not are_two_points_adjacent(head_pos, tail_pos):
       if up_by_2_units(head_pos, tail_pos):
@@ -130,14 +132,14 @@ def execute_move(direction: str, steps_count: int, head_pos: List[int], tail_pos
       elif in_bottom_right_quarter(head_pos, tail_pos):
         tail_pos[0] += 1
         tail_pos[1] += 1
-      
-    all_tail_positions.append(tail_pos)
+      all_tail_positions.add((tail_pos[0], tail_pos[1]))
 
 
     steps_count -= 1
 
 # initialize with the start position of (0, 0)
-all_tail_positions = list([0, 0])
+all_tail_positions = set([(0, 0)])
+all_head_positions = list([[0, 0]])
 
 
 for move in moves:
@@ -145,6 +147,8 @@ for move in moves:
   steps_count = int(step)
   execute_move(direction, steps_count, head_pos, tail_pos, all_tail_positions)
 print('len(all_tail_positions) = ', len(all_tail_positions))
-print('all_tail_positionss = ', all_tail_positions)
+# print('all_tail_positionss = ', all_tail_positions)
+# print('all_head_positions = ', all_head_positions)
+# print('len(all_head_positions) = ', len(all_head_positions))
 
 
