@@ -20,7 +20,7 @@ inp = [s for s in "".join(read_txt_from_file(ABSOLUTE_FILE_PATH)).split("\n") if
 
 
 """
-THe bag contained only 12 red cubes, 13 green cubes, and 14 blue cubes.
+The bag contained only 12 red cubes, 13 green cubes, and 14 blue cubes.
 
 Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green | T
 Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue | T
