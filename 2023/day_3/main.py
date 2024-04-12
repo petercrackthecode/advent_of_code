@@ -2,8 +2,6 @@
 # importing the sys module
 import sys
 import os
-from typing import List
-import re
 
 # Get the absolute path of the directory containing the current file
 current_dir = os.path.dirname(os.path.abspath(__file__))
