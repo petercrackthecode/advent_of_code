@@ -1,5 +1,6 @@
 # https://adventofcode.com/2023/day/2
 # importing the sys module
+from utils import read_txt_from_file
 import sys
 import os
 from typing import List
@@ -12,11 +13,11 @@ lib_dir = os.path.join(current_dir, "../lib")
 sys.path.append(lib_dir)
 
 # appending the directory of read_txt_from_file.py in the sys.path list
-from utils import read_txt_from_file
 
 FILE_PATH = "part_1_input.txt"
 ABSOLUTE_FILE_PATH = os.path.abspath(FILE_PATH)
-inp = [s for s in "".join(read_txt_from_file(ABSOLUTE_FILE_PATH)).split("\n") if s != ""]
+inp = [s for s in "".join(read_txt_from_file(
+    ABSOLUTE_FILE_PATH)).split("\n") if s != ""]
 
 
 """
@@ -39,7 +40,7 @@ return the sum of the IDs of the possible games: int
 def get_cubes(s: str) -> List[int]:
     red = green = blue = 0
     cubes_info_idx = s.find(":")
-    cubes_info = s[cubes_info_idx + 1 :].strip()
+    cubes_info = s[cubes_info_idx + 1:].strip()
     # print(f'cubes_info = |{cubes_info}|')
     bags = [s for s in cubes_info.split(";") if s != ""]
     for bag in bags:
@@ -144,7 +145,8 @@ def cube_conundrum_p2(inp: str) -> None:
         min_blue = 0
 
         for subset in subsets:
-            cube_types = [s.strip() for s in subset.split(",") if s.strip() != ""]
+            cube_types = [s.strip()
+                          for s in subset.split(",") if s.strip() != ""]
             for cube_type in cube_types:
                 # 3 blue, 4 red
                 count_str, color = cube_type.split(" ")
