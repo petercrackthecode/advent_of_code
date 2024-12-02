@@ -10,7 +10,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 lib_dir = os.path.join(current_dir, "../lib")
 
 sys.path.append(lib_dir)
-from utils import read_txt_from_file
+from utils import read_txt_from_file  # noqa
 
 
 def print_lines(lines):
@@ -42,13 +42,21 @@ def is_safe_level(nums: List[int]) -> bool:
 
     return True
 
+def is_safe_after_dampened(nums: List[int]) -> bool:
+    for ignored_idx in range(len(nums)):
+        new_nums: List[int] = nums[:ignored_idx] + nums[ignored_idx+1:]
+        if is_safe_level(new_nums):
+            return True
+        
+    return False
+
 
 def solve(lines: List[str]) -> None:
     """
     - Count the number of safe levels.
     - safe condition for a level:
-            - the numbers are strictly increasing or decreasing.
-            - two adjacent number only differ by at most three.
+        - the numbers are strictly increasing or decreasing.
+        - two adjacent number only differ by at most three.
 
             i
     7 6 4 2 1 | desc | 1
@@ -84,6 +92,19 @@ def solve(lines: List[str]) -> None:
             ans_1 += 1
 
     print(f"problem 1: ans = {ans_1}")
+
+    """
+    - removing a single level from an unsafe report will make it safe.
+    - bruteforce: if a list is unsafe, check if there exists a safe list yielded by omitting a number 0..len(N)-1
+    """
+    ans_2: int = 0
+    for line in lines:
+        nums: List[int] = [int(num)
+                           for num in line.split(" ") if num.strip() != ""]
+        if is_safe_level(nums) or is_safe_after_dampened(nums):
+            ans_2 += 1
+
+    print(f"problem 2: ans = {ans_2}")
 
 
 FILE_PATH = "input_p1.txt"
